@@ -1,4 +1,4 @@
-- name: Install docker on the instance
+- name: Configure the created ec2 instance
   hosts: testserver
   remote_user: ubuntu
   become: yes
@@ -10,9 +10,15 @@
     raw: "pip install docker"
 
   tasks:
+  - name: "Firewass settings"
+    shell: |
+      sudo ufw default deny incoming
+      sudo ufw default allow outgoing
+      sudo ufw allow 22
+      sudo ufw allow 80
+
   - name: "Install Docker CE"
     shell: |
-      sudo apt update
       sudo apt install -y \
         apt-transport-https \
         ca-certificates \
@@ -55,9 +61,6 @@
 
   - name: "Print"
     shell: python ~/word_count.py /tmp/index.html
-    register: hello
+    register: count
 
-  - debug: msg="{{ hello.stdout }}"
-
-  # - name: "Logs the resource usage of the container every 10 seconds"
- # sudo docker stats nginx_server --no-stream
+  - debug: msg="{{ count.stdout }}"

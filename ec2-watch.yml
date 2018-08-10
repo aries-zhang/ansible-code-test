@@ -1,0 +1,13 @@
+- name: Log resource usage of the nginx container
+  hosts: testserver
+  remote_user: ubuntu
+  become: yes
+  gather_facts: no
+
+  tasks:
+
+  - name: "docker stats"
+    shell: sudo docker stats nginx_server --no-stream
+    register: result
+  
+  - debug: msg="{{ result.stdout }}"
