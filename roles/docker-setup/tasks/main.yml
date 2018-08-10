@@ -1,0 +1,31 @@
+- name: "Install Docker CE"
+  shell: |
+    sudo apt install -y \
+      apt-transport-https \
+      ca-certificates \
+      curl \
+      software-properties-common
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    sudo add-apt-repository \
+      "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+      $(lsb_release -cs) \
+      stable"
+    sudo apt update
+    sudo apt -y install docker-ce
+
+- name: "Deploy and start an nginx container in docker"
+  docker_container:
+    name: nginx_server
+    image: nginx
+    state: started
+    ports:
+    - "80:80"
+
+- name: "Run a command to test the healthiness of the nginx container"
+  uri:
+    url: "http://localhost"
+    status_code: 200
+  register: result
+  until: result.status == 200
+  retries: 120
+  delay: 2

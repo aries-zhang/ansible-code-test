@@ -1,0 +1,15 @@
+- name: Configure the created ec2 instance
+  hosts: testserver
+  remote_user: ubuntu
+  become: true
+  gather_facts: no
+  pre_tasks:
+  - name: "install python"
+    raw: "sudo apt update && sudo apt install -y python python-pip"
+  - name: "pip install docker"
+    raw: "pip install docker"
+
+  roles:
+    - firewall
+    - docker-setup
+    - word-count

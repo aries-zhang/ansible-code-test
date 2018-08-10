@@ -1,0 +1,8 @@
+---
+instance_type: t2.micro
+security_group: basic_access
+image: ami-47c21a25 # Ubuntu Server 16.04 LTS (HVM), SSD Volume Type
+keypair: test-key
+region: ap-southeast-2
+count: 1
+temp_output: /tmp/index.html

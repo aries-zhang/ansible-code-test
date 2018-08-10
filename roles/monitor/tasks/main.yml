@@ -1,0 +1,5 @@
+- name: "docker stats"
+  shell: docker stats nginx_server --no-stream
+  register: result
+
+- debug: msg="{{ result.stdout }}"

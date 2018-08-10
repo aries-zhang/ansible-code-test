@@ -1,0 +1,15 @@
+- name: "Fetch the output of the nginx container’s default http page"
+  get_url:
+    url: http://localhost
+    dest: "{{ temp_output }}"
+
+- name: "Print out the word that occurs most on the page"
+  copy:
+    src: ../files/word_count.py
+    dest: ~/word_count.py
+
+- name: "Print"
+  shell: "python ~/word_count.py {{ temp_output }}"
+  register: count
+
+- debug: msg="{{ count.stdout }}"
