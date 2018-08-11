@@ -1,17 +1,17 @@
 - name: "Install Docker CE"
   shell: |
-    sudo apt install -y \
+    apt install -y \
       apt-transport-https \
       ca-certificates \
       curl \
       software-properties-common
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-    sudo add-apt-repository \
+    add-apt-repository \
       "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
       $(lsb_release -cs) \
       stable"
-    sudo apt update
-    sudo apt -y install docker-ce
+    apt update
+    apt -y install docker-ce
 
 - name: "Deploy and start an nginx container in docker"
   docker_container:

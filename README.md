@@ -16,6 +16,10 @@ Configurations needed on the control machine.
 
     For macOS, you need to ```sudo pip install boto3 --ignore-installed six```
 
+    If python or pip was not installed on the control machine: 
+    
+    ```sudo apt install python python-pip```
+
 - Environment variables
 
     Ansible ec2 module uses the following environment variables if ```aws_access_key``` and ```aws_secret_key``` are not specified in the script.
