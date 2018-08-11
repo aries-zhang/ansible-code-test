@@ -23,7 +23,7 @@
 
 - name: "Run a command to test the healthiness of the nginx container"
   uri:
-    url: "http://localhost"
+    url: "http://{{ inventory_hostname }}"
     status_code: 200
   register: result
   until: result.status == 200
